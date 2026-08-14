@@ -857,278 +857,236 @@
 
 
 
-<style id="fullscreen-mobile-envelope">
-  /* ===== Full-screen envelope on mobile ===== */
-  #envelope-screen {
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100vh;
-    height: 100svh;
-    min-height: 100svh;
-    padding: 0 !important;
-    margin: 0;
-    display: block;
-    overflow: hidden;
-    background: #f3e6d7;
-  }
 
-  @supports (height: 100dvh) {
-    #envelope-screen {
-      height: 100dvh;
-      min-height: 100dvh;
-    }
-  }
-
-  .env-wrap {
-    position: absolute !important;
-    inset: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    height: 100svh !important;
-    min-height: 100svh !important;
-    aspect-ratio: auto !important;
-    perspective: 2200px;
-    filter: none !important;
-  }
-
-  @supports (height: 100dvh) {
-    .env-wrap {
-      height: 100dvh !important;
-      min-height: 100dvh !important;
-    }
-  }
-
-  .envelope {
-    position: absolute !important;
-    inset: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    min-height: 100% !important;
-    border: 0 !important;
-    border-radius: 0 !important;
-    overflow: hidden;
-    background: #f5eadc;
-    box-shadow: none !important;
-  }
-
-  .env-body {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
+<style id="alternate-envelope-design">
+  /* ===== Alternate full-screen envelope: burgundy pocket + beige flap ===== */
+  #envelope-screen{
+    position:fixed;
+    inset:0;
+    width:100vw;
+    height:100vh;
+    height:100svh;
+    min-height:100svh;
+    overflow:hidden;
     background:
-      radial-gradient(circle at 50% 20%, rgba(255,255,255,.64), transparent 34%),
-      linear-gradient(165deg, #fbf5ec 0%, #f2e5d2 58%, #e7d2b1 100%);
+      radial-gradient(circle at 50% 18%, rgba(255,255,255,.10), transparent 30%),
+      linear-gradient(180deg,#6b2a3d 0%,#4f1c2d 58%,#3b1422 100%);
   }
 
-  /* Side folds fill the screen but keep the envelope geometry obvious */
-  .env-side-l,
-  .env-side-r {
-    position: absolute;
-    top: 0;
-    width: 57%;
-    height: 100%;
-    z-index: 2;
-    background: linear-gradient(160deg, #f5ead8 0%, #e4ceaa 100%);
-    filter: drop-shadow(0 0 1px rgba(117,84,43,.24));
-  }
-
-  .env-side-l {
-    left: 0;
-    clip-path: polygon(0 0, 100% 50%, 0 100%);
-  }
-
-  .env-side-r {
-    right: 0;
-    clip-path: polygon(100% 0, 0 50%, 100% 100%);
-  }
-
-  .env-shadow-fold {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 61%;
-    z-index: 3;
-    background: linear-gradient(0deg, #ead7ba 0%, #f7eee0 82%, #fbf6ed 100%);
-    clip-path: polygon(0 100%, 100% 100%, 50% 20%);
-    filter: drop-shadow(0 -1px 1px rgba(128,92,45,.16));
-  }
-
-  .env-flap {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 55%;
-    z-index: 4;
-    background: linear-gradient(165deg, #fbf3e7 0%, #e8d5b5 100%);
-    clip-path: polygon(0 0, 100% 0, 50% 100%);
-    transform-origin: top center;
-    box-shadow: inset 0 -1px 0 rgba(151,111,56,.38);
-    backface-visibility: hidden;
-  }
-
-  .env-flap::after {
-    content: "";
-    position: absolute;
-    left: 10%;
-    right: 10%;
-    bottom: 7%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(176,138,78,.48), transparent);
-  }
-
-  .env-seal {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: clamp(78px, 22vw, 94px);
-    height: clamp(78px, 22vw, 94px);
-    z-index: 8;
-  }
-
-  .env-seal span {
-    font-size: clamp(34px, 9vw, 42px);
-  }
-
-  .env-hint {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: max(26px, calc(env(safe-area-inset-bottom) + 14px));
-    z-index: 10;
-    padding: 0 18px;
-    color: #6b5c48;
-    font-size: 10px;
-    letter-spacing: .18em;
-  }
-
-  /* Make the fold proportions more envelope-like on tall phones */
-  @media (max-width: 600px) and (min-height: 700px) {
-    .env-flap {
-      height: 48%;
-    }
-
-    .env-shadow-fold {
-      height: 58%;
-    }
-
-    .env-seal {
-      top: 49%;
+  @supports (height:100dvh){
+    #envelope-screen{
+      height:100dvh;
+      min-height:100dvh;
     }
   }
 
-  /* Landscape phones */
-  @media (orientation: landscape) and (max-height: 500px) {
-    .env-flap {
-      height: 64%;
-    }
+  .env-wrap{
+    position:absolute !important;
+    inset:0 !important;
+    width:100vw !important;
+    height:100vh !important;
+    height:100svh !important;
+    min-height:100svh !important;
+    perspective:2200px;
+  }
 
-    .env-shadow-fold {
-      height: 72%;
-    }
-
-    .env-seal {
-      top: 52%;
-      width: 72px;
-      height: 72px;
+  @supports (height:100dvh){
+    .env-wrap{
+      height:100dvh !important;
+      min-height:100dvh !important;
     }
   }
-</style>
 
-
-<style id="burgundy-envelope-accent">
-  /* ===== Burgundy accents inside the full-screen envelope ===== */
-
-  #envelope-screen {
+  .envelope{
+    position:absolute !important;
+    inset:0 !important;
+    width:100% !important;
+    height:100% !important;
+    overflow:hidden;
     background:
-      radial-gradient(circle at 50% 18%, rgba(126,54,73,.30), transparent 34%),
-      linear-gradient(180deg, #6a2a3d 0%, #4f1c2d 100%) !important;
+      linear-gradient(180deg,#6f2d42 0%,#5c2237 58%,#48182a 100%) !important;
   }
 
-  .env-body {
+  /* Burgundy paper body */
+  .env-body{
+    position:absolute;
+    inset:0;
+    z-index:0;
     background:
-      radial-gradient(circle at 50% 20%, rgba(255,255,255,.72), transparent 32%),
-      linear-gradient(165deg,
-        #fbf5ec 0%,
-        #f3e6d5 46%,
-        #ead6c0 72%,
-        #d9b9b2 100%
-      ) !important;
+      radial-gradient(circle at 50% 18%,rgba(255,255,255,.07),transparent 32%),
+      linear-gradient(180deg,#6f2d42 0%,#5c2237 60%,#48182a 100%);
   }
 
-  /* Main top flap: rich burgundy with warm depth */
-  .env-flap {
+  /* New beige top flap — deeper and more elegant */
+  .env-flap{
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+    height:61%;
+    z-index:5;
     background:
-      radial-gradient(circle at 50% 4%, rgba(255,255,255,.10), transparent 34%),
-      linear-gradient(165deg,
-        #7c354b 0%,
-        #67283d 48%,
-        #521d30 100%
-      ) !important;
+      linear-gradient(165deg,#fff7ec 0%,#f1dfca 58%,#dfc3a8 100%) !important;
+    clip-path:polygon(0 0,100% 0,50% 100%);
+    transform-origin:top center;
     box-shadow:
-      inset 0 -1px 0 rgba(217,185,120,.38),
-      0 8px 20px rgba(62,20,32,.16) !important;
+      inset 0 -1px 0 rgba(184,148,95,.52),
+      0 10px 24px rgba(42,8,18,.20);
+    backface-visibility:hidden;
   }
 
-  .env-flap svg {
-    opacity: .5;
-  }
-
-  .env-flap svg path {
-    stroke: #d9b978 !important;
-  }
-
-  .env-flap::after {
+  .env-flap::before{
+    content:"";
+    position:absolute;
+    inset:0;
     background:
-      linear-gradient(90deg,
-        transparent,
-        rgba(217,185,120,.72),
-        transparent
-      ) !important;
+      linear-gradient(135deg,transparent 48%,rgba(255,255,255,.24) 49%,transparent 50%);
+    opacity:.7;
+    pointer-events:none;
   }
 
-  /* Side folds stay ivory, with a soft burgundy tint */
+  .env-flap::after{
+    content:"";
+    position:absolute;
+    left:14%;
+    right:14%;
+    bottom:9%;
+    height:1px;
+    background:linear-gradient(90deg,transparent,#b8945f,transparent);
+  }
+
+  .env-flap svg{
+    opacity:.45;
+  }
+
+  .env-flap svg path{
+    stroke:#b8945f !important;
+  }
+
+  /* Side folds: burgundy, different geometry from previous version */
   .env-side-l,
-  .env-side-r {
+  .env-side-r{
+    position:absolute;
+    bottom:0;
+    top:auto;
+    width:64%;
+    height:66%;
+    z-index:3;
     background:
-      linear-gradient(160deg,
-        #f6eadc 0%,
-        #ead7c7 62%,
-        #cda9aa 100%
-      ) !important;
-    filter:
-      drop-shadow(0 0 1px rgba(94,35,51,.24)) !important;
+      linear-gradient(160deg,#7a354b 0%,#5d2338 58%,#45172a 100%) !important;
+    filter:drop-shadow(0 0 1px rgba(0,0,0,.18));
   }
 
-  /* Lower fold remains light, but picks up the wine palette */
-  .env-shadow-fold {
-    background:
-      linear-gradient(0deg,
-        #d7b8b2 0%,
-        #ead8c6 34%,
-        #f7eee1 78%,
-        #fbf6ed 100%
-      ) !important;
-    filter:
-      drop-shadow(0 -1px 1px rgba(94,35,51,.16)) !important;
+  .env-side-l{
+    left:0;
+    clip-path:polygon(0 8%,100% 53%,0 100%);
   }
 
-  /* Gold wax seal with a subtle burgundy rim */
-  .env-seal {
-    border: 3px solid rgba(94,35,51,.38) !important;
+  .env-side-r{
+    right:0;
+    clip-path:polygon(100% 8%,0 53%,100% 100%);
+  }
+
+  /* Bottom pocket fold: beige edge + burgundy body */
+  .env-shadow-fold{
+    position:absolute;
+    left:0;
+    bottom:0;
+    width:100%;
+    height:60%;
+    z-index:4;
+    background:
+      linear-gradient(180deg,#7a344a 0%,#63263a 55%,#4b192b 100%) !important;
+    clip-path:polygon(0 100%,100% 100%,50% 17%);
     box-shadow:
-      0 9px 20px rgba(62,20,32,.32),
-      inset 0 2px 3px rgba(255,255,255,.46),
-      inset 0 -3px 8px rgba(81,48,9,.30),
-      0 0 0 4px rgba(217,185,120,.18) !important;
+      inset 0 1px 0 rgba(217,185,120,.35),
+      0 -1px 0 rgba(255,255,255,.05);
   }
 
-  .env-hint {
-    color: #f3dfd7 !important;
-    text-shadow: 0 1px 8px rgba(62,20,32,.45);
+  /* Thin beige/gold pocket edge */
+  .env-shadow-fold::before{
+    content:"";
+    position:absolute;
+    left:11%;
+    right:11%;
+    top:14%;
+    height:1px;
+    background:linear-gradient(90deg,transparent,#d5b884,transparent);
+    opacity:.8;
+  }
+
+  /* Gold wax seal with burgundy lettering */
+  .env-seal{
+    position:absolute;
+    left:50%;
+    top:52%;
+    transform:translate(-50%,-50%);
+    width:clamp(82px,22vw,96px);
+    height:clamp(82px,22vw,96px);
+    border-radius:50%;
+    z-index:9;
+    background:
+      radial-gradient(circle at 35% 28%,#e0bf79 0%,#b88b3f 58%,#865f24 100%) !important;
+    border:3px solid rgba(255,245,220,.45) !important;
+    box-shadow:
+      0 12px 28px rgba(31,4,13,.38),
+      inset 0 2px 4px rgba(255,255,255,.45),
+      inset 0 -4px 8px rgba(78,46,8,.28),
+      0 0 0 4px rgba(94,35,51,.20);
+  }
+
+  .env-seal::before{
+    content:"";
+    position:absolute;
+    inset:8px;
+    border-radius:50%;
+    border:1px solid rgba(94,35,51,.30);
+  }
+
+  .env-seal span{
+    position:relative;
+    z-index:1;
+    color:#4c1a2b !important;
+    font-size:clamp(34px,9vw,42px);
+  }
+
+  .env-hint{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:max(26px,calc(env(safe-area-inset-bottom) + 14px));
+    z-index:12;
+    padding:0 18px;
+    color:#f3dfd3 !important;
+    text-shadow:0 1px 8px rgba(0,0,0,.35);
+    font-size:10px;
+    letter-spacing:.18em;
+  }
+
+  /* Keep the full-screen envelope composition balanced on tall phones */
+  @media (max-width:600px) and (min-height:760px){
+    .env-flap{height:57%}
+    .env-shadow-fold{height:57%}
+    .env-side-l,.env-side-r{height:63%}
+    .env-seal{top:50.5%}
+  }
+
+  @media (max-width:360px){
+    .env-seal{
+      width:78px;
+      height:78px;
+    }
+  }
+
+  @media (orientation:landscape) and (max-height:500px){
+    .env-flap{height:72%}
+    .env-shadow-fold{height:75%}
+    .env-side-l,.env-side-r{height:80%}
+    .env-seal{
+      top:53%;
+      width:70px;
+      height:70px;
+    }
   }
 </style>
 
