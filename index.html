@@ -855,6 +855,283 @@
   }
 </style>
 
+
+
+<style id="fullscreen-mobile-envelope">
+  /* ===== Full-screen envelope on mobile ===== */
+  #envelope-screen {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100svh;
+    min-height: 100svh;
+    padding: 0 !important;
+    margin: 0;
+    display: block;
+    overflow: hidden;
+    background: #f3e6d7;
+  }
+
+  @supports (height: 100dvh) {
+    #envelope-screen {
+      height: 100dvh;
+      min-height: 100dvh;
+    }
+  }
+
+  .env-wrap {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100svh !important;
+    min-height: 100svh !important;
+    aspect-ratio: auto !important;
+    perspective: 2200px;
+    filter: none !important;
+  }
+
+  @supports (height: 100dvh) {
+    .env-wrap {
+      height: 100dvh !important;
+      min-height: 100dvh !important;
+    }
+  }
+
+  .envelope {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    overflow: hidden;
+    background: #f5eadc;
+    box-shadow: none !important;
+  }
+
+  .env-body {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background:
+      radial-gradient(circle at 50% 20%, rgba(255,255,255,.64), transparent 34%),
+      linear-gradient(165deg, #fbf5ec 0%, #f2e5d2 58%, #e7d2b1 100%);
+  }
+
+  /* Side folds fill the screen but keep the envelope geometry obvious */
+  .env-side-l,
+  .env-side-r {
+    position: absolute;
+    top: 0;
+    width: 57%;
+    height: 100%;
+    z-index: 2;
+    background: linear-gradient(160deg, #f5ead8 0%, #e4ceaa 100%);
+    filter: drop-shadow(0 0 1px rgba(117,84,43,.24));
+  }
+
+  .env-side-l {
+    left: 0;
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+  }
+
+  .env-side-r {
+    right: 0;
+    clip-path: polygon(100% 0, 0 50%, 100% 100%);
+  }
+
+  .env-shadow-fold {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 61%;
+    z-index: 3;
+    background: linear-gradient(0deg, #ead7ba 0%, #f7eee0 82%, #fbf6ed 100%);
+    clip-path: polygon(0 100%, 100% 100%, 50% 20%);
+    filter: drop-shadow(0 -1px 1px rgba(128,92,45,.16));
+  }
+
+  .env-flap {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 55%;
+    z-index: 4;
+    background: linear-gradient(165deg, #fbf3e7 0%, #e8d5b5 100%);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transform-origin: top center;
+    box-shadow: inset 0 -1px 0 rgba(151,111,56,.38);
+    backface-visibility: hidden;
+  }
+
+  .env-flap::after {
+    content: "";
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    bottom: 7%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(176,138,78,.48), transparent);
+  }
+
+  .env-seal {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: clamp(78px, 22vw, 94px);
+    height: clamp(78px, 22vw, 94px);
+    z-index: 8;
+  }
+
+  .env-seal span {
+    font-size: clamp(34px, 9vw, 42px);
+  }
+
+  .env-hint {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: max(26px, calc(env(safe-area-inset-bottom) + 14px));
+    z-index: 10;
+    padding: 0 18px;
+    color: #6b5c48;
+    font-size: 10px;
+    letter-spacing: .18em;
+  }
+
+  /* Make the fold proportions more envelope-like on tall phones */
+  @media (max-width: 600px) and (min-height: 700px) {
+    .env-flap {
+      height: 48%;
+    }
+
+    .env-shadow-fold {
+      height: 58%;
+    }
+
+    .env-seal {
+      top: 49%;
+    }
+  }
+
+  /* Landscape phones */
+  @media (orientation: landscape) and (max-height: 500px) {
+    .env-flap {
+      height: 64%;
+    }
+
+    .env-shadow-fold {
+      height: 72%;
+    }
+
+    .env-seal {
+      top: 52%;
+      width: 72px;
+      height: 72px;
+    }
+  }
+</style>
+
+
+<style id="burgundy-envelope-accent">
+  /* ===== Burgundy accents inside the full-screen envelope ===== */
+
+  #envelope-screen {
+    background:
+      radial-gradient(circle at 50% 18%, rgba(126,54,73,.30), transparent 34%),
+      linear-gradient(180deg, #6a2a3d 0%, #4f1c2d 100%) !important;
+  }
+
+  .env-body {
+    background:
+      radial-gradient(circle at 50% 20%, rgba(255,255,255,.72), transparent 32%),
+      linear-gradient(165deg,
+        #fbf5ec 0%,
+        #f3e6d5 46%,
+        #ead6c0 72%,
+        #d9b9b2 100%
+      ) !important;
+  }
+
+  /* Main top flap: rich burgundy with warm depth */
+  .env-flap {
+    background:
+      radial-gradient(circle at 50% 4%, rgba(255,255,255,.10), transparent 34%),
+      linear-gradient(165deg,
+        #7c354b 0%,
+        #67283d 48%,
+        #521d30 100%
+      ) !important;
+    box-shadow:
+      inset 0 -1px 0 rgba(217,185,120,.38),
+      0 8px 20px rgba(62,20,32,.16) !important;
+  }
+
+  .env-flap svg {
+    opacity: .5;
+  }
+
+  .env-flap svg path {
+    stroke: #d9b978 !important;
+  }
+
+  .env-flap::after {
+    background:
+      linear-gradient(90deg,
+        transparent,
+        rgba(217,185,120,.72),
+        transparent
+      ) !important;
+  }
+
+  /* Side folds stay ivory, with a soft burgundy tint */
+  .env-side-l,
+  .env-side-r {
+    background:
+      linear-gradient(160deg,
+        #f6eadc 0%,
+        #ead7c7 62%,
+        #cda9aa 100%
+      ) !important;
+    filter:
+      drop-shadow(0 0 1px rgba(94,35,51,.24)) !important;
+  }
+
+  /* Lower fold remains light, but picks up the wine palette */
+  .env-shadow-fold {
+    background:
+      linear-gradient(0deg,
+        #d7b8b2 0%,
+        #ead8c6 34%,
+        #f7eee1 78%,
+        #fbf6ed 100%
+      ) !important;
+    filter:
+      drop-shadow(0 -1px 1px rgba(94,35,51,.16)) !important;
+  }
+
+  /* Gold wax seal with a subtle burgundy rim */
+  .env-seal {
+    border: 3px solid rgba(94,35,51,.38) !important;
+    box-shadow:
+      0 9px 20px rgba(62,20,32,.32),
+      inset 0 2px 3px rgba(255,255,255,.46),
+      inset 0 -3px 8px rgba(81,48,9,.30),
+      0 0 0 4px rgba(217,185,120,.18) !important;
+  }
+
+  .env-hint {
+    color: #f3dfd7 !important;
+    text-shadow: 0 1px 8px rgba(62,20,32,.45);
+  }
+</style>
+
 </head>
 <body>
 
@@ -862,6 +1139,7 @@
 <div id="envelope-screen">
   <div class="env-wrap">
     <div class="envelope" id="envelope">
+      <div class="env-body"></div>
       <div class="env-side-l"></div>
       <div class="env-side-r"></div>
       <div class="env-shadow-fold"></div>
