@@ -858,8 +858,13 @@
 
 
 
-<style id="alternate-envelope-design">
-  /* ===== Alternate full-screen envelope: burgundy pocket + beige flap ===== */
+
+<style id="mobile-luxury-envelope">
+  /* =========================================================
+     Luxury full-screen mobile envelope
+     Burgundy + warm beige + subtle gold
+     ========================================================= */
+
   #envelope-screen{
     position:fixed;
     inset:0;
@@ -868,9 +873,9 @@
     height:100svh;
     min-height:100svh;
     overflow:hidden;
-    background:
-      radial-gradient(circle at 50% 18%, rgba(255,255,255,.10), transparent 30%),
-      linear-gradient(180deg,#6b2a3d 0%,#4f1c2d 58%,#3b1422 100%);
+    padding:0 !important;
+    background:#efe0cf;
+    isolation:isolate;
   }
 
   @supports (height:100dvh){
@@ -880,6 +885,20 @@
     }
   }
 
+  /* soft paper texture across the whole screen */
+  #envelope-screen::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+    background:
+      radial-gradient(circle at 18% 15%, rgba(255,255,255,.42) 0 1px, transparent 1.5px),
+      radial-gradient(circle at 78% 68%, rgba(94,35,51,.08) 0 1px, transparent 1.5px);
+    background-size:19px 19px, 23px 23px;
+    opacity:.32;
+  }
+
   .env-wrap{
     position:absolute !important;
     inset:0 !important;
@@ -887,7 +906,8 @@
     height:100vh !important;
     height:100svh !important;
     min-height:100svh !important;
-    perspective:2200px;
+    perspective:2600px;
+    z-index:1;
   }
 
   @supports (height:100dvh){
@@ -902,137 +922,181 @@
     inset:0 !important;
     width:100% !important;
     height:100% !important;
+    min-height:100% !important;
     overflow:hidden;
-    background:
-      linear-gradient(180deg,#6f2d42 0%,#5c2237 58%,#48182a 100%) !important;
+    border:0 !important;
+    border-radius:0 !important;
+    background:#f1e2cf !important;
+    box-shadow:none !important;
   }
 
-  /* Burgundy paper body */
+  /* elegant inset gold frame */
+  .envelope::after{
+    content:"";
+    position:absolute;
+    inset:max(11px, env(safe-area-inset-top))
+          11px
+          max(11px, env(safe-area-inset-bottom))
+          11px;
+    z-index:7;
+    pointer-events:none;
+    border:1px solid rgba(176,138,78,.34);
+    box-shadow:inset 0 0 0 4px rgba(255,255,255,.05);
+  }
+
   .env-body{
     position:absolute;
     inset:0;
     z-index:0;
     background:
-      radial-gradient(circle at 50% 18%,rgba(255,255,255,.07),transparent 32%),
-      linear-gradient(180deg,#6f2d42 0%,#5c2237 60%,#48182a 100%);
+      radial-gradient(110% 52% at 50% 0%, rgba(255,255,255,.52), transparent 62%),
+      linear-gradient(180deg,
+        #f8ecdd 0%,
+        #f1dfcb 46%,
+        #e6cdb5 100%
+      ) !important;
   }
 
-  /* New beige top flap — deeper and more elegant */
+  /* Side folds: warm beige, visible but calm */
+  .env-side-l,
+  .env-side-r{
+    position:absolute;
+    top:35%;
+    bottom:0;
+    width:63%;
+    height:auto;
+    z-index:2;
+    background:
+      linear-gradient(155deg,
+        #f5e7d7 0%,
+        #ead4bf 64%,
+        #d9bba7 100%
+      ) !important;
+    filter:none !important;
+  }
+
+  .env-side-l{
+    left:0;
+    clip-path:polygon(0 0, 100% 47%, 0 100%);
+    box-shadow:inset -1px 0 rgba(176,138,78,.12);
+  }
+
+  .env-side-r{
+    right:0;
+    clip-path:polygon(100% 0, 0 47%, 100% 100%);
+    box-shadow:inset 1px 0 rgba(176,138,78,.12);
+  }
+
+  /* Lower pocket: beige with a very soft wine undertone */
+  .env-shadow-fold{
+    position:absolute;
+    left:0;
+    bottom:0;
+    width:100%;
+    height:54%;
+    z-index:3;
+    background:
+      linear-gradient(180deg,
+        #ead4c1 0%,
+        #e4cbb5 44%,
+        #d8b9a6 100%
+      ) !important;
+    clip-path:polygon(0 100%, 100% 100%, 50% 12%);
+    filter:none !important;
+    box-shadow:inset 0 1px rgba(176,138,78,.20);
+  }
+
+  /* Thin decorative wine line across the pocket */
+  .env-shadow-fold::after{
+    content:"";
+    position:absolute;
+    left:16%;
+    right:16%;
+    top:19%;
+    height:1px;
+    background:linear-gradient(90deg,transparent,rgba(94,35,51,.30),transparent);
+  }
+
+  /* Main flap: the strong burgundy statement */
   .env-flap{
     position:absolute;
     left:0;
     top:0;
     width:100%;
-    height:61%;
+    height:50%;
     z-index:5;
     background:
-      linear-gradient(165deg,#fff7ec 0%,#f1dfca 58%,#dfc3a8 100%) !important;
+      radial-gradient(90% 54% at 50% 0%, rgba(255,255,255,.10), transparent 65%),
+      linear-gradient(165deg,
+        #7a354a 0%,
+        #682a3f 48%,
+        #531e31 100%
+      ) !important;
     clip-path:polygon(0 0,100% 0,50% 100%);
     transform-origin:top center;
-    box-shadow:
-      inset 0 -1px 0 rgba(184,148,95,.52),
-      0 10px 24px rgba(42,8,18,.20);
     backface-visibility:hidden;
+    box-shadow:
+      inset 0 -1px rgba(217,185,120,.42),
+      0 10px 24px rgba(62,20,32,.12) !important;
   }
 
   .env-flap::before{
     content:"";
     position:absolute;
     inset:0;
-    background:
-      linear-gradient(135deg,transparent 48%,rgba(255,255,255,.24) 49%,transparent 50%);
-    opacity:.7;
     pointer-events:none;
+    background:
+      linear-gradient(118deg,transparent 0 47%,rgba(255,255,255,.055) 49%,transparent 51%),
+      linear-gradient(242deg,transparent 0 47%,rgba(255,255,255,.045) 49%,transparent 51%);
   }
 
   .env-flap::after{
     content:"";
     position:absolute;
-    left:14%;
-    right:14%;
+    left:13%;
+    right:13%;
     bottom:9%;
     height:1px;
-    background:linear-gradient(90deg,transparent,#b8945f,transparent);
+    background:linear-gradient(
+      90deg,
+      transparent,
+      rgba(217,185,120,.78),
+      transparent
+    );
   }
 
   .env-flap svg{
-    opacity:.45;
+    opacity:.48 !important;
   }
 
   .env-flap svg path{
-    stroke:#b8945f !important;
+    stroke:#d9b978 !important;
+    stroke-width:.8 !important;
   }
 
-  /* Side folds: burgundy, different geometry from previous version */
-  .env-side-l,
-  .env-side-r{
-    position:absolute;
-    bottom:0;
-    top:auto;
-    width:64%;
-    height:66%;
-    z-index:3;
-    background:
-      linear-gradient(160deg,#7a354b 0%,#5d2338 58%,#45172a 100%) !important;
-    filter:drop-shadow(0 0 1px rgba(0,0,0,.18));
-  }
-
-  .env-side-l{
-    left:0;
-    clip-path:polygon(0 8%,100% 53%,0 100%);
-  }
-
-  .env-side-r{
-    right:0;
-    clip-path:polygon(100% 8%,0 53%,100% 100%);
-  }
-
-  /* Bottom pocket fold: beige edge + burgundy body */
-  .env-shadow-fold{
-    position:absolute;
-    left:0;
-    bottom:0;
-    width:100%;
-    height:60%;
-    z-index:4;
-    background:
-      linear-gradient(180deg,#7a344a 0%,#63263a 55%,#4b192b 100%) !important;
-    clip-path:polygon(0 100%,100% 100%,50% 17%);
-    box-shadow:
-      inset 0 1px 0 rgba(217,185,120,.35),
-      0 -1px 0 rgba(255,255,255,.05);
-  }
-
-  /* Thin beige/gold pocket edge */
-  .env-shadow-fold::before{
-    content:"";
-    position:absolute;
-    left:11%;
-    right:11%;
-    top:14%;
-    height:1px;
-    background:linear-gradient(90deg,transparent,#d5b884,transparent);
-    opacity:.8;
-  }
-
-  /* Gold wax seal with burgundy lettering */
+  /* Wax seal */
   .env-seal{
     position:absolute;
     left:50%;
-    top:52%;
+    top:50%;
     transform:translate(-50%,-50%);
-    width:clamp(82px,22vw,96px);
-    height:clamp(82px,22vw,96px);
-    border-radius:50%;
+    width:clamp(78px,21vw,92px);
+    height:clamp(78px,21vw,92px);
     z-index:9;
+    border-radius:50%;
+    border:2px solid rgba(255,244,213,.50) !important;
     background:
-      radial-gradient(circle at 35% 28%,#e0bf79 0%,#b88b3f 58%,#865f24 100%) !important;
-    border:3px solid rgba(255,245,220,.45) !important;
+      radial-gradient(circle at 34% 27%,
+        #e3c47f 0%,
+        #c09a52 48%,
+        #987034 76%,
+        #785322 100%
+      ) !important;
     box-shadow:
-      0 12px 28px rgba(31,4,13,.38),
-      inset 0 2px 4px rgba(255,255,255,.45),
-      inset 0 -4px 8px rgba(78,46,8,.28),
-      0 0 0 4px rgba(94,35,51,.20);
+      0 12px 26px rgba(62,20,32,.26),
+      inset 0 2px 3px rgba(255,255,255,.44),
+      inset 0 -4px 8px rgba(77,46,12,.25),
+      0 0 0 4px rgba(94,35,51,.13) !important;
   }
 
   .env-seal::before{
@@ -1040,53 +1104,129 @@
     position:absolute;
     inset:8px;
     border-radius:50%;
-    border:1px solid rgba(94,35,51,.30);
+    border:1px solid rgba(94,35,51,.28);
+    pointer-events:none;
   }
 
   .env-seal span{
     position:relative;
     z-index:1;
-    color:#4c1a2b !important;
-    font-size:clamp(34px,9vw,42px);
+    color:#4d1d2c !important;
+    font-size:clamp(33px,8.8vw,40px) !important;
+    line-height:1;
   }
 
+  /* The hint stays outside the important fold area */
   .env-hint{
     position:absolute;
     left:0;
     right:0;
-    bottom:max(26px,calc(env(safe-area-inset-bottom) + 14px));
+    bottom:max(24px, calc(env(safe-area-inset-bottom) + 12px));
     z-index:12;
-    padding:0 18px;
-    color:#f3dfd3 !important;
-    text-shadow:0 1px 8px rgba(0,0,0,.35);
-    font-size:10px;
-    letter-spacing:.18em;
+    padding:0 22px;
+    color:#5e2333 !important;
+    font-size:10px !important;
+    letter-spacing:.17em !important;
+    text-shadow:none !important;
   }
 
-  /* Keep the full-screen envelope composition balanced on tall phones */
-  @media (max-width:600px) and (min-height:760px){
-    .env-flap{height:57%}
-    .env-shadow-fold{height:57%}
-    .env-side-l,.env-side-r{height:63%}
-    .env-seal{top:50.5%}
+  /* Better balance on modern tall phones */
+  @media (max-width:600px) and (min-height:720px){
+    .env-flap{
+      height:47%;
+    }
+
+    .env-side-l,
+    .env-side-r{
+      top:33%;
+    }
+
+    .env-shadow-fold{
+      height:55%;
+    }
+
+    .env-seal{
+      top:48.5%;
+    }
   }
 
+  /* Narrow iPhones */
   @media (max-width:360px){
     .env-seal{
-      width:78px;
-      height:78px;
+      width:74px;
+      height:74px;
+    }
+
+    .env-hint{
+      font-size:9px !important;
     }
   }
 
-  @media (orientation:landscape) and (max-height:500px){
-    .env-flap{height:72%}
-    .env-shadow-fold{height:75%}
-    .env-side-l,.env-side-r{height:80%}
-    .env-seal{
-      top:53%;
-      width:70px;
-      height:70px;
+  /* Short phone screens */
+  @media (max-height:650px) and (orientation:portrait){
+    .env-flap{
+      height:55%;
     }
+
+    .env-side-l,
+    .env-side-r{
+      top:31%;
+    }
+
+    .env-shadow-fold{
+      height:62%;
+    }
+
+    .env-seal{
+      top:52%;
+    }
+  }
+
+  /* Landscape phones */
+  @media (orientation:landscape) and (max-height:500px){
+    .env-flap{
+      height:69%;
+    }
+
+    .env-side-l,
+    .env-side-r{
+      top:18%;
+    }
+
+    .env-shadow-fold{
+      height:76%;
+    }
+
+    .env-seal{
+      top:54%;
+      width:68px;
+      height:68px;
+    }
+
+    .env-hint{
+      bottom:8px;
+    }
+  }
+</style>
+
+
+<style id="mm-seal-visibility-fix">
+  /* Make M&M on the wax seal clearer */
+  .env-seal {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .env-seal span {
+    font-size: clamp(38px, 10vw, 46px) !important;
+    font-weight: 700 !important;
+    color: #4a1527 !important;
+    letter-spacing: -0.02em !important;
+    text-shadow:
+      0 1px 0 rgba(255,255,255,.28),
+      0 1px 3px rgba(74,21,39,.18) !important;
+    transform: translateY(-1px);
   }
 </style>
 
